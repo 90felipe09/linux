@@ -18,7 +18,7 @@ static ssize_t log_to_file_show(
     struct kobject *kobj, 
     struct kobj_attribute *attr, 
     char *buf){
-        return sprintf(buf, "A ultima scno é %s\n", "403");
+        return sprintf(buf, "A ultima scno é %s\n", "o último scno é 403");
     }
 
 
@@ -59,7 +59,7 @@ static int __init sys_last_scno_init(void){
     error = sysfs_create_file(sys_last_scno_kobject, &log_attribute.attr);
     if(error){
         kobject_put(sys_last_scno_kobject);
-        pr_debug("Não foi possível criar o arquivo");
+        pr_debug("Não foi possível criar o kobject");
         return error;
         
     }
