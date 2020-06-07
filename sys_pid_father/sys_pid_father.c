@@ -9,7 +9,7 @@
 
 asmlinkage long sys_pid_father(int pid)
 {
-	task_struct current_task* = pid_task(find_vpid(pid), PIDTYPE_PID);
+	struct task_struct *current_task = pid_task(find_vpid(pid), PIDTYPE_PID);
 
     return current_task->parent->pid;
 }
