@@ -73,6 +73,8 @@
 #define UART_DR_ERROR		(UART011_DR_OE|UART011_DR_BE|UART011_DR_PE|UART011_DR_FE)
 #define UART_DUMMY_DR_RX	(1 << 16)
 
+int global_tx_count = 0;
+
 static u16 pl011_std_offsets[REG_ARRAY_SIZE] = {
 	[REG_DR] = UART01x_DR,
 	[REG_FR] = UART01x_FR,
@@ -1405,6 +1407,8 @@ __acquires(&uap->port.lock)
 static bool pl011_tx_char(struct uart_amba_port *uap, unsigned char c,
 			  bool from_irq)
 {
+	global_tx_count++;
+	printk(KERN_ALERT"\n\tglobal_tx_count: %d", global_tx_count);
 	if (unlikely(!from_irq) &&
 	    pl011_read(uap, REG_FR) & UART01x_FR_TXFF)
 		return false; /* unable to transmit character */
